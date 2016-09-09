@@ -15,7 +15,7 @@ import Chart from '../components/Chart.js'
 
 import throttle from 'react-throttle-render'
 
-const ThrottledChart = throttle(Chart, 100)
+const ThrottledChart = throttle(Chart, 200)
 
 const mapStateToProps = ({ dispatch }) => ({
   dispatch,

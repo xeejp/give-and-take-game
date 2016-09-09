@@ -147,7 +147,7 @@ class PageSteps extends React.Component {
         {buttons}
       </Stepper>
       {this.renderButtons()}
-      <ExpandTransition loading={loading} open={true} transitionDuration={300}>
+      <ExpandTransition loading={loading} open={true}>
         <div style={{margin: '8px 20px'}}>{this.getStepContent(game_pages.indexOf(game_page))}</div>
       </ExpandTransition>
       </div>

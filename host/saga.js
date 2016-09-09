@@ -57,7 +57,7 @@ function* matchSaga() {
 function* showResultsSaga() {
   while(true) {
     yield take(`${showResults}`)
-    const results = yield select(({ trust_results }) => trust_results)
+    const results = yield select(({ results }) => results)
     sendData('SHOW_RESULTS', results)
   }
 }

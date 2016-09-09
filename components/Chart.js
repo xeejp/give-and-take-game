@@ -5,10 +5,39 @@ import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Chip from 'material-ui/chip'
 
 import Highcharts from 'react-highcharts'
+import SwipeableViews from 'react-swipeable-views';
+import { grey300 } from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import RightIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
+import LeftIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 
-import { fallChartButton } from 'host/actions.js'
+import { fallChartButton, changeChartTurn } from 'host/actions.js'
 
-const mapStateToProps = ({ results, role }) => {
+function getFirstGive(results, pairs_length){
+
+}
+
+function getFirstTake(results, pairs_length){
+  return (results[1] && results[2])? results[1].take? results[1].take : 0 + results[2].take? results[2].take : 0 : 0
+}
+
+function getGive(turn, results, pairs_length) {
+  return results[turn]? results[turn].give? results[turn].give : 0  : 0
+}
+
+function getTake(turn, results, pairs_length) {
+  return results[turn]? results[turn].take? results[turn].take : 0  : 0
+}
+
+function compData(results) {
+  const categories = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  return Array.from(categories).map(turn =>
+    results[turn]? results[turn].take? results[turn].take : 0 : 0).concat([
+      results[10]? results[10].give? results[10].give : 0 : 0])
+}
+
+const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
+  const pairs_length = pairs? Object.keys(pairs).length : 0
   const first_config = {
     chart: {
       plotBackgroundColor: null,
@@ -16,20 +45,19 @@ const mapStateToProps = ({ results, role }) => {
       plotShadow: false,
       type: 'pie'
     },
-    title: {
-      text: '1ターン目の選択'
-    },
+    title: { text: "最初の選択" },
+    credits: { text: 'xee.jp', href: 'https://xee.jp/' },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
     plotOptions: {
       pie: {
-        allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
           format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-        }
+        },
+        showInLegend: true
       }
     },
     series: [{
@@ -38,14 +66,13 @@ const mapStateToProps = ({ results, role }) => {
       data: [
         {
           name: '続行',
-          y: 56.33
-        },
-        {
+          y: getGive(1, results, pairs_length)
+        }, {
           name: '終了',
-          y: 56.33
+          y: getTake(1, results, pairs_length)
         }
       ]
-    }] 
+    }]
   }
   const ninth_config = {
     chart: {
@@ -54,20 +81,19 @@ const mapStateToProps = ({ results, role }) => {
       plotShadow: false,
       type: 'pie'
     },
-    title: {
-      text: '9ターン目の選択'
-    },
+    title: { text: "9ターンの選択" },
+    credits: { text: 'xee.jp', href: 'https://xee.jp/' },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
     plotOptions: {
       pie: {
-        allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
           format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-        }
+        },
+        showInLegend: true
       }
     },
     series: [{
@@ -76,11 +102,10 @@ const mapStateToProps = ({ results, role }) => {
       data: [
         {
           name: '続行',
-          y: 56.33
-        },
-        {
+          y: getGive(9, results, pairs_length)
+        }, {
           name: '終了',
-          y: 56.33
+          y: getTake(9, results, pairs_length)
         }
       ]
     }]
@@ -92,20 +117,19 @@ const mapStateToProps = ({ results, role }) => {
       plotShadow: false,
       type: 'pie'
     },
-    title: {
-      text: '10ターン目の選択'
-    },
+    title: { text: "10ターンの選択" },
+    credits: { text: 'xee.jp', href: 'https://xee.jp/' },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
     plotOptions: {
       pie: {
-        allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
           format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-        }
+        },
+        showInLegend: true
       }
     },
     series: [{
@@ -114,11 +138,10 @@ const mapStateToProps = ({ results, role }) => {
       data: [
         {
           name: '続行',
-          y: 56.33
-        },
-        {
+          y: getGive(10, results, pairs_length)
+        }, {
           name: '終了',
-          y: 56.33
+          y: getTake(10, results, pairs_length)
         }
       ]
     }]
@@ -128,7 +151,7 @@ const mapStateToProps = ({ results, role }) => {
     credits: { text: 'xee.jp', href: 'https://xee.jp/' },
     title: { text: "終了が選択されたターン" },
     xAxis: {
-      categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "最終"],
+      categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "終了なし"],
       crosshair: true,
       title: { text: "ターン" },
     },
@@ -148,7 +171,7 @@ const mapStateToProps = ({ results, role }) => {
     series: [
       {
         name: "終了したターン",
-        data: [],
+        data: compData(results),
       },
     ],
   }
@@ -157,7 +180,8 @@ const mapStateToProps = ({ results, role }) => {
     ninth_config,
     tenth_config,
     all_config,
-    role
+    chart_turn,
+    role,
   }
 }
 
@@ -166,9 +190,11 @@ class Chart extends Component {
     super(props)
     const { role } = this.props
     this.handleCallback = this.handleCallback.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleInc = this.handleInc.bind(this)
+    this.handleDec = this.handleDec.bind(this)
     this.state = {
       expanded: Boolean(role),
-      round: 1,
     }
   }
 
@@ -186,9 +212,42 @@ class Chart extends Component {
     this.setState({expanded: expanded});
   }
 
-  render() {
-    const { first_config, ninth_config, tenth_config, all_config } = this.props
+  handleChange = (index, fromIndex) => {
+    const { chart_turn, dispatch } = this.props
+    const diff = index - fromIndex
+    dispatch(changeChartTurn(diff + chart_turn))
+  }
 
+  handleInc = () => {
+    const { chart_turn, dispatch } = this.props
+    dispatch(changeChartTurn(chart_turn + 1))
+  }
+
+  handleDec = () => {
+    const { chart_turn, dispatch } = this.props
+    dispatch(changeChartTurn(chart_turn - 1))
+  }
+
+  render() {
+    const { first_config, ninth_config, tenth_config, all_config, chart_turn } = this.props
+    const styles = {
+      mediumIcon: {
+        width: 48,
+        height: 48,
+      },
+      left: {
+        width: 96,
+        height: 96,
+        padding: 24,
+        float: "left",
+      },
+      right: {
+        width: 96,
+        height: 96,
+        padding: 24,
+        float: "right",
+      }
+    }
     return (
     <div id="chart">
       <Card
@@ -202,16 +261,37 @@ class Chart extends Component {
           showExpandableButton={true}
         />
         <CardText expandable={true}>
+          <SwipeableViews index={chart_turn-1} onChangeIndex={this.handleChange}>
+            <Highcharts config={first_config} />
+            <Highcharts config={ninth_config} />
+            <Highcharts config={tenth_config} />
+          </SwipeableViews>
           <div>
-            <span style={{marginRight: 4, float: "left", width: "30%"}}>
-              <Highcharts config={first_config} callback={this.handleCallback}></Highcharts>
-              <Highcharts config={ninth_config} callback={this.handleCallback}></Highcharts>
-              <Highcharts config={tenth_config} callback={this.handleCallback}></Highcharts>
-            </span>
-            <span style={{clear: "both"}}>
-              <Highcharts config={all_config} callback={this.handleCallback}></Highcharts>
-            </span>
+            { chart_turn != 1?
+              <IconButton iconStyle={styles.mediumIcon} style={styles.left}
+                tooltip="戻る" onClick={this.handleDec}>
+                <LeftIcon/>
+              </IconButton>
+            :
+              <IconButton iconStyle={styles.mediumIcon} style={styles.left}
+                tooltip="最初の円グラフ">
+                <LeftIcon color={grey300}/>
+              </IconButton>
+            }
+            { chart_turn != 3?
+              <IconButton iconStyle={styles.mediumIcon} style={styles.right}
+                tooltip="進む" onClick={this.handleInc} >
+                <RightIcon/>
+              </IconButton>
+            :
+              <IconButton iconStyle={styles.mediumIcon} style={styles.right}
+                tooltip="最後の円グラフ">
+                <RightIcon color={grey300}/>
+              </IconButton>
+            }
+            <Chip style={{clear: "both", margin: "auto"}}>表示円グラフ: {chart_turn}</Chip>
           </div>
+          <Highcharts config={all_config} callback={this.handleCallback}></Highcharts>
         </CardText>
       </Card>
     </div>

@@ -7,6 +7,7 @@ import {
 
 import {
   changePage,
+  changeChartTurn,
   fallChartButton,
   reset,
   intoLoading,
@@ -18,7 +19,7 @@ const initialState = {
   pairs: {},
   loading: true,
   results: {},
-  chart_round: 1,
+  chart_turn: 1,
 }
 
 const reducer = concatenateReducers([
@@ -40,7 +41,7 @@ const reducer = concatenateReducers([
       results: {},
     }),
 
-    'give': ({ pairs, participants }, { payload: {id, target_id, pair_id }}) => ({
+    'give': ({ pairs, participants, results }, { payload: {id, target_id, pair_id }}) => ({
       pairs: Object.assign({}, pairs, {
         [pair_id]: Object.assign({}, pairs[pair_id], {
           pair_state: pairs[pair_id].pair_turn < 10? "during" : "finished",
@@ -58,9 +59,14 @@ const reducer = concatenateReducers([
             prizes[participants[target_id].role][pairs[pair_id].pair_turn]
             : prizes[participants[target_id].role][10]
         }),
+      }),
+      results: Object.assign({}, results, {
+        [pairs[pair_id].pair_turn]: Object.assign({}, results[pairs[pair_id].pair_turn], {
+          give: (results[pairs[pair_id].pair_turn]? results[pairs[pair_id].pair_turn].give : 0) + 1
+        })
       })
     }),
-    'take': ({ pairs, participants }, { payload: {id, target_id, pair_id} }) => ({
+    'take': ({ pairs, participants, results }, { payload: {id, target_id, pair_id} }) => ({
       pairs: Object.assign({}, pairs, {
         [pair_id]: Object.assign({}, pairs[pair_id], {
           pair_state: "finished",
@@ -74,11 +80,17 @@ const reducer = concatenateReducers([
           point: prizes[participants[target_id].role][pairs[pair_id].pair_turn]
         }),
       }),
+      results: Object.assign({}, results, {
+        [pairs[pair_id].pair_turn]: Object.assign({}, results[pairs[pair_id].pair_turn], {
+          take: (results[pairs[pair_id].pair_turn]? results[pairs[pair_id].pair_turn].take : 0) + 1
+        })
+      }),
     }),
 
     'matched': (_, { payload: { participants, pairs } }) => ({
       participants, pairs
     }),
+    [changeChartTurn]: (_, { payload }) => ({ chart_turn: payload, chart_button: true}),
     [fallChartButton]: () => ({ chart_button: false}),
   }, initialState),
 ])

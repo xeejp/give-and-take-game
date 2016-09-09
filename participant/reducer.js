@@ -6,7 +6,8 @@ import {
 } from '../util/index.js'
 
 import {
-  changeChartRound,
+  changeChartTurn,
+  fallChartButton,
   submitGive,
   submitTake,
   fallSnackBarFlags,
@@ -17,7 +18,7 @@ const initialState = {
   point: 0,
   role: "visitor",
   pair_id: null,
-  chart_round: 1,
+  chart_turn: 1,
   results: {},
   participants_length: 0,
 }
@@ -31,7 +32,7 @@ const reducer = concatenateReducers([
     'change page': (_, { payload }) => ({ game_page: payload }),
 
     'reseted': () => ({
-      game_page: "waiting", role: "visitor", point: 0, pair_id: null,
+      game_page: "waiting", role: "visitor", point: 0, pair_id: null, pair_turn: 1, pair_state: "during"
     }),
     'show results': (_ , { payload }) => ({
       results: payload,
@@ -60,14 +61,15 @@ const reducer = concatenateReducers([
       participants: Object.assign({}, participants, { [id]: participant })
     }),
     'matched': (_, { payload: {
-      members, pair_round, pair_id, point, results, role, pair_state
+      members, pair_turn, pair_id, point, results, role, pair_state
     } }) => ({
-      members, pair_round, pair_id, point, results, role, pair_state
+      members, pair_turn, pair_id, point, results, role, pair_state
     }),
 
     [fallSnackBarFlags]: ({ pair_state }) => ({  }),
     [fallSnackBarFlags2]: ({}) => ({ change_role_flag: false }),
-    [changeChartRound]: (_, { payload }) => ({ chart_round: payload }),
+    [changeChartTurn]: (_, { payload }) => ({ chart_turn: payload }),
+    [fallChartButton]: () => ({ chart_button: false}),
   }, initialState),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])

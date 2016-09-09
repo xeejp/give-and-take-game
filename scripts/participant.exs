@@ -38,6 +38,13 @@ defmodule GiveAndTakeGame.Participant do
       true -> elem(get_in(Main.prizes, [target_id_role]), pair_turn)
       false -> elem(get_in(Main.prizes, [target_id_role]), 10)
     end)
+    |> put_in([:results], Map.merge(get_in(data, [:results]), %{
+        Integer.to_string(pair_turn) => Map.merge(get_in(data, [:results,
+           Integer.to_string(pair_turn)]) || %{}, %{
+            give: (get_in(data, [:results, Integer.to_string(pair_turn), :give]) || 0) + 1
+          })
+       })
+    )
     |> Actions.submit_give(id, target_id, pair_id)
   end
 
@@ -57,6 +64,13 @@ defmodule GiveAndTakeGame.Participant do
     |> put_in([:pairs, pair_id, :pair_state], "finished")
     |> put_in([:participants, id, :point], elem(get_in(Main.prizes, [id_role]), pair_turn))
     |> put_in([:participants, target_id, :point], elem(get_in(Main.prizes, [target_id_role]), pair_turn))
+    |> put_in([:results], Map.merge(get_in(data, [:results]), %{
+        Integer.to_string(pair_turn) => Map.merge(get_in(data, [:results,
+           Integer.to_string(pair_turn)]) || %{}, %{
+            take: (get_in(data, [:results, Integer.to_string(pair_turn), :take]) || 0) + 1
+          })
+       })
+    )
     |> Actions.submit_take(id, target_id, pair_id)
   end
 
