@@ -48,14 +48,14 @@ class ProfitTable extends Component {
             adjustForCheckbox={false}
           >
             <TableRow>
-              <TableHeaderColumn colSpan="3" tooltip="利得表" style={{textAlign: 'center'}}>
+              <TableHeaderColumn colSpan="3" style={{textAlign: 'center'}}>
                 利得表
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn tooltip="ターン">ターン</TableHeaderColumn>
-              <TableHeaderColumn tooltip="このターンで終了した場合のあなたの利得です。">あなたの利得</TableHeaderColumn>
-              <TableHeaderColumn tooltip="このターンで終了した場合の相手の利得です。">相手の利得</TableHeaderColumn>
+              <TableHeaderColumn>ターン</TableHeaderColumn>
+              <TableHeaderColumn>あなたの利得</TableHeaderColumn>
+              <TableHeaderColumn>相手の利得</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody

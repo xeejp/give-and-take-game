@@ -12,8 +12,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import { getRoleName } from '../../util/index.js'
 
-const mapStateToProps = ({ pair_turn, role }) => ({
-  pair_turn, role,
+const mapStateToProps = ({ pair_turn, role, point }) => ({
+  pair_turn, role, point
 })
 
 import {
@@ -41,7 +41,7 @@ class During extends Component {
   }
 
   render() {
-    const { pair_turn, role, select_temp, } = this.props
+    const { pair_turn, role, select_temp, point } = this.props
     const style = {
       margin: 12,
     }
@@ -69,17 +69,23 @@ class During extends Component {
           <CardText>
             {is_myTurn?
               <span style={{margin: 4}}>
-                <RaisedButton style={{float: "left", width: "45%"}} label="終了"
+                <RaisedButton style={{float: "left", width: "45%"}}
+                  label={"終了 (" + point + "ポイントで確定)"}
                   secondary={true} onClick={this.handleTake}
                 />
-                <RaisedButton style={{float: "right", width: "45%"}} label="続行"
+                <RaisedButton style={{float: "right", width: "45%"}}
+                  label={"続行"}
                   primary={true} onClick={this.handleGive}
                 />
               </span>
             :
               <span style={{margin: 4}}>
-                <RaisedButton style={{float: "left", width: "45%"}} label="終了" secondary={true} disabled={true}/>
-                <RaisedButton style={{float: "right", width: "45%"}} label="続行" primary={true} disabled={true}/>
+                <RaisedButton style={{float: "left", width: "45%"}}
+                  label="終了"
+                  secondary={true} disabled={true}/>
+                <RaisedButton style={{float: "right", width: "45%"}}
+                  label="続行"
+                  primary={true} disabled={true}/>
               </span>
             }
           </CardText>

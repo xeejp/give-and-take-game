@@ -1,6 +1,5 @@
 defmodule GiveAndTakeGame.Participant do
   alias GiveAndTakeGame.Actions
-
   alias GiveAndTakeGame.Main
 
   require Logger

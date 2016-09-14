@@ -1,11 +1,6 @@
 defmodule GiveAndTakeGame do
-  use Xee.ThemeScript
+  use XeeThemeScript
   require Logger
-
-  require_file "scripts/main.exs"
-  require_file "scripts/host.exs"
-  require_file "scripts/participant.exs"
-  require_file "scripts/actions.exs"
 
   alias GiveAndTakeGame.Host
   alias GiveAndTakeGame.Participant
