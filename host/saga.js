@@ -78,8 +78,8 @@ function* changePageSaga() {
 function* saga() {
   yield fork(fetchContentsSaga)
   yield fork(matchSaga)
-  //yield fork(syncParticipantsLengthSaga)
-  //yield fork(syncGameProgressSaga)
+  yield fork(syncParticipantsLengthSaga)
+  yield fork(syncGameProgressSaga)
   yield fork(showResultsSaga)
   yield fork(changePageSaga)
 }
