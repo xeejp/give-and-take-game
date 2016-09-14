@@ -21,6 +21,8 @@ import {
   submitTake,
 } from '../actions.js'
 
+import ProfitTable from './ProfitTable.js'
+
 class During extends Component {
   constructor() {
     super()
@@ -59,7 +61,7 @@ class During extends Component {
         <Stepper activeStep={pair_turn-1}>
           {step_title}
         </Stepper>
-        <Card>
+        <Card style={{marginBottom: 12}}>
           <CardHeader
             title={"あなたは" + getRoleName(role) + "側です"}
             subtitle={is_myTurn? "選択してください。" : getRoleName(enemy) + "側が選択中。しばらくお待ちください。" }
@@ -82,6 +84,7 @@ class During extends Component {
             }
           </CardText>
         </Card>
+        <ProfitTable />
       </div>
     )
   }

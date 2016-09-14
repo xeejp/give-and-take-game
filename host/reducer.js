@@ -62,7 +62,9 @@ const reducer = concatenateReducers([
       }),
       results: Object.assign({}, results, {
         [pairs[pair_id].pair_turn]: Object.assign({}, results[pairs[pair_id].pair_turn], {
-          give: (results[pairs[pair_id].pair_turn]? results[pairs[pair_id].pair_turn].give : 0) + 1
+          give: results[pairs[pair_id].pair_turn]?
+            results[pairs[pair_id].pair_turn].give? results[pairs[pair_id].pair_turn].give + 1 : 0
+          : 0
         })
       })
     }),
@@ -74,15 +76,17 @@ const reducer = concatenateReducers([
       }),
       participants: Object.assign({}, participants, {
         [id]: Object.assign({}, participants[id], {
-          point: prizes[participants[id].role][pairs[pair_id].pair_turn]
+          point: prizes[participants[id].role][pairs[pair_id][pair_turn-1]]
         }),
         [target_id]: Object.assign({}, participants[target_id], {
-          point: prizes[participants[target_id].role][pairs[pair_id].pair_turn]
+          point: prizes[participants[target_id].role][pairs[pair_id][pair_turn-1]]
         }),
       }),
       results: Object.assign({}, results, {
         [pairs[pair_id].pair_turn]: Object.assign({}, results[pairs[pair_id].pair_turn], {
-          take: (results[pairs[pair_id].pair_turn]? results[pairs[pair_id].pair_turn].take : 0) + 1
+          take: results[pairs[pair_id].pair_turn]?
+            results[pairs[pair_id].pair_turn].take? results[pairs[pair_id].pair_turn].take + 1 : 0
+          : 0
         })
       }),
     }),

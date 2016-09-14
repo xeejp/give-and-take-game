@@ -12,6 +12,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import TextField from 'material-ui/TextField';
 import ResetButton from './ResetButton.js'
+import MatchingButton from './MatchingButton.js'
 
 import { getPageName, game_pages } from 'util/index'
 
@@ -113,15 +114,19 @@ class PageSteps extends React.Component {
           onTouchTap={this.handlePrev}
           style={{marginRight: "12px"}}
         />
+        <RaisedButton
+          label={game_pages[3] === game_page ? '実験を続ける' : '次へ'}
+          style={{marginRight: 4}}
+          primary={true}
+          onTouchTap={this.handleNext}
+        />
         <span style={{float: "right"}}>
-          <RaisedButton
-            label={game_pages[3] === game_page ? '実験を続ける' : '次へ'}
-            style={{marginRight: 4}}
-            primary={true}
-            onTouchTap={this.handleNext}
-          />
           {game_pages[3] === game_page ?
             <ResetButton />
+          : <span />
+          }
+          {game_pages[1] === game_page ?
+            <MatchingButton />
           : <span />
           }
         </span>

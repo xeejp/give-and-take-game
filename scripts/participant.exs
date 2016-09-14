@@ -62,8 +62,8 @@ defmodule GiveAndTakeGame.Participant do
     pair_turn = get_in(data, [:pairs, pair_id, :pair_turn])
     data
     |> put_in([:pairs, pair_id, :pair_state], "finished")
-    |> put_in([:participants, id, :point], elem(get_in(Main.prizes, [id_role]), pair_turn))
-    |> put_in([:participants, target_id, :point], elem(get_in(Main.prizes, [target_id_role]), pair_turn))
+    |> put_in([:participants, id, :point], elem(get_in(Main.prizes, [id_role]), pair_turn-1))
+    |> put_in([:participants, target_id, :point], elem(get_in(Main.prizes, [target_id_role]), pair_turn-1))
     |> put_in([:results], Map.merge(get_in(data, [:results]), %{
         Integer.to_string(pair_turn) => Map.merge(get_in(data, [:results,
            Integer.to_string(pair_turn)]) || %{}, %{

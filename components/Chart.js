@@ -13,19 +13,23 @@ import LeftIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 
 import { fallChartButton, changeChartTurn } from 'host/actions.js'
 
-function getFirstGive(results, pairs_length){
-
+function getFirstGive(results){
+  return (results[1] && results[2])?
+    results[1].give? results[1].give : 0 + results[2].give? results[2].give : 0
+  : 0
 }
 
-function getFirstTake(results, pairs_length){
-  return (results[1] && results[2])? results[1].take? results[1].take : 0 + results[2].take? results[2].take : 0 : 0
+function getFirstTake(results){
+  return (results[1] && results[2])?
+    results[1].take? results[1].take : 0 + results[2].take? results[2].take : 0
+  : 0
 }
 
-function getGive(turn, results, pairs_length) {
+function getGive(turn, results) {
   return results[turn]? results[turn].give? results[turn].give : 0  : 0
 }
 
-function getTake(turn, results, pairs_length) {
+function getTake(turn, results) {
   return results[turn]? results[turn].take? results[turn].take : 0  : 0
 }
 
@@ -37,7 +41,6 @@ function compData(results) {
 }
 
 const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
-  const pairs_length = pairs? Object.keys(pairs).length : 0
   const first_config = {
     chart: {
       plotBackgroundColor: null,
@@ -66,10 +69,10 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       data: [
         {
           name: '続行',
-          y: getGive(1, results, pairs_length)
+          y: getFirstGive(results)
         }, {
           name: '終了',
-          y: getTake(1, results, pairs_length)
+          y: getFirstTake(results)
         }
       ]
     }]
@@ -102,10 +105,10 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       data: [
         {
           name: '続行',
-          y: getGive(9, results, pairs_length)
+          y: getGive(9, results)
         }, {
           name: '終了',
-          y: getTake(9, results, pairs_length)
+          y: getTake(9, results)
         }
       ]
     }]
@@ -138,10 +141,10 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       data: [
         {
           name: '続行',
-          y: getGive(10, results, pairs_length)
+          y: getGive(10, results)
         }, {
           name: '終了',
-          y: getTake(10, results, pairs_length)
+          y: getTake(10, results)
         }
       ]
     }]
@@ -289,9 +292,10 @@ class Chart extends Component {
                 <RightIcon color={grey300}/>
               </IconButton>
             }
-            <Chip style={{clear: "both", margin: "auto"}}>表示円グラフ: {chart_turn}</Chip>
+            <span style={{clear: "both", margin: "auto"}}/>
+            <Chip style={{margin: "auto"}}>表示円グラフ: {chart_turn}</Chip>
           </div>
-          <Highcharts config={all_config} callback={this.handleCallback}></Highcharts>
+          <Highcharts style={{marginTop: 12}} config={all_config} callback={this.handleCallback}></Highcharts>
         </CardText>
       </Card>
     </div>
