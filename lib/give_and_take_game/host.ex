@@ -23,25 +23,11 @@ defmodule GiveAndTakeGame.Host do
       pairs: %{},
       results: %{},
     }
-    |> Actions.reseted()
-  end
-
-  def sync_game_progress(data, game_progress) do
-    Actions.sync_game_progress(data, game_progress)
-  end
-
-  def sync_participants_length(data, participants_length) do
-    Actions.sync_participants_length(data, participants_length)
-  end
-
-  def show_results(data, results) do
-    Actions.show_results(data, results)
   end
 
   def change_page(data, game_page) do
     if game_page in Main.pages do
       %{data | game_page: game_page}
-      |> Actions.change_page(game_page)
     else
       data
     end
@@ -86,10 +72,20 @@ defmodule GiveAndTakeGame.Host do
     {participants, groups} = Enum.reduce(groups, acc, reducer)
 
     %{data | participants: participants, pairs: groups}
-    |> Actions.matched()
+  end
+
+  def get_filter(data) do
+    %{
+      _default: true,
+      participants_number: "participantsNumber"
+    }
   end
   
-  def format_contents(data) do
-    data
+  def filter_diff(data, diff) do
+    Transmap.transform(diff, get_filter(data), diff: true)
+  end
+
+  def filter_data(data) do
+    Transmap.transform(data, get_filter(data), diff: false)
   end
 end

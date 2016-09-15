@@ -16,6 +16,7 @@ defmodule GiveAndTakeGame do
 
   def init do
     {:ok, %{"data" => %{
+        participants_number: 0,
         game_page: "waiting",
         game_progress: 0,
         participants: %{},
@@ -25,18 +26,37 @@ defmodule GiveAndTakeGame do
     }}
   end
 
-  def wrap_result({:ok, _} = result), do: result
-  def wrap_result(result), do: Main.wrap(result)
+  def compute_game_progress(data) do
+    pairs_size = Map.get(data, :pairs) |> map_size()
+    pairs_length = case (pairs_size) do
+      0 -> 1
+      x -> x
+    end
+    finished_pairs = Map.get(data, :pairs) |> Enum.count(fn {_, pair} -> pair.pair_state == "finished" end)
+    Map.put(data, :game_progress, round(100 * finished_pairs / pairs_length))
+  end
+
+  def wrap_result(old, {:ok, result}) do
+    result = Map.update!(result, :data, fn new ->
+      new |> compute_game_progress()
+    end)
+    {:ok, Main.compute_diff(old, result)}
+  end
+
+  def wrap_result(old, new) do
+    new = new |> compute_game_progress()
+    {:ok, Main.compute_diff(old, %{data: new})}
+  end
 
   def join(data, id) do
     result = unless Map.has_key?(data.participants, id) do
       new = Main.new_participant()
       put_in(data, [:participants, id], new)
-      |> Actions.join(id, new)
+      |> Map.update!(:participants_number, fn n -> n + 1 end)
     else
       data
     end
-    wrap_result(result)
+    wrap_result(data, result)
   end
   
   # Host router
@@ -44,15 +64,13 @@ defmodule GiveAndTakeGame do
     Logger.debug("[Give and Take Game] #{action} #{inspect params}")
     result = case {action, params} do
       {"FETCH_CONTENTS", _} -> Host.fetch_contents(data)
-      {"SYNC_GAME_PROGRESS", game_progress} -> Host.sync_game_progress(data, game_progress)
-      {"SYNC_PARTICIPANTS_LENGTH", participants_length} -> Host.sync_participants_length(data, participants_length)
-      {"SHOW_RESULTS", results} -> Host.show_results(data, results)
       {"MATCH", _} -> Host.match(data)
       {"RESET", _} -> Host.reset(data)
       {"CHANGE_PAGE", page} -> Host.change_page(data, page)
-      _ -> {:ok, %{"data" => data}}
+      {"SHOW_RESULTS", results} -> Actions.show_results(data, results)
+      _ -> {:ok, %{data: data}}
     end
-    wrap_result(result)
+    wrap_result(data, result)
   end
 
   # Participant router
@@ -62,8 +80,8 @@ defmodule GiveAndTakeGame do
       {"FETCH_CONTENTS", _} -> Participant.fetch_contents(data, id)
       {"SUBMIT_GIVE", _} -> Participant.submit_give(data, id)
       {"SUBMIT_TAKE", _} -> Participant.submit_take(data, id)
-      _ -> {:ok, %{"data" => data}}
+      _ -> {:ok, %{data: data}}
     end
-    wrap_result(result)
+    wrap_result(data, result)
   end
 end

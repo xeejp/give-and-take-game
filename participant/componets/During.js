@@ -51,7 +51,7 @@ class During extends Component {
     for(let i = 0; i < 10; i ++) {
       let imt = role == "even"? (i+1) % 2 == 1 : (i+1) % 2 == 0
       step_title[i] = (
-        <Step>
+        <Step key={i}>
           <StepLabel>{imt? "自分" : "相手"}</StepLabel>
         </Step>
       )

@@ -31,6 +31,11 @@ const mapStateToProps = ({ game_page, game_progress, pairs, loading }) => ({
 })
 
 class PageSteps extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {}
+  }
+
   Async = (cb) => {
     const { dispatch } = this.props
     dispatch(intoLoading())

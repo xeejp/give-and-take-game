@@ -9,7 +9,7 @@ defmodule GiveAndTakeGame.Participant do
   end
 
   def submit_give(data, id) do
-    target_id = getTargetId(data, id)
+    target_id = get_target_id(data, id)
     pair_id = get_in(data, [:participants, id, :pair_id])
     id_role = case get_in(data, [:participants, id, :role]) do
       "even" -> :even
@@ -44,11 +44,10 @@ defmodule GiveAndTakeGame.Participant do
           })
        })
     )
-    |> Actions.submit_give(id, target_id, pair_id)
   end
 
   def submit_take(data, id) do
-    target_id = getTargetId(data, id)
+    target_id = get_target_id(data, id)
     pair_id = get_in(data, [:participants, id, :pair_id])
     id_role = case get_in(data, [:participants, id, :role]) do
       "even" -> :even
@@ -70,11 +69,10 @@ defmodule GiveAndTakeGame.Participant do
           })
        })
     )
-    |> Actions.submit_take(id, target_id, pair_id)
   end
 
   # utils
-  def getTargetId(data, id) do
+  def get_target_id(data, id) do
     pair_id = get_in(data, [:participants, id, :pair_id])
     members = get_in(data, [:pairs, pair_id, :members])
     target_id = case members do
@@ -83,35 +81,29 @@ defmodule GiveAndTakeGame.Participant do
     end
   end
 
-  def format_participant(participant), do: participant
-
-  def format_data(data) do
+  def get_filter(data, id) do
+    pair_id = get_in(data, [:participants, id, :pair_id]) || :default
     %{
-      game_page: data.game_page,
-      game_progress: data.game_progress,
+      game_page: true,
+      game_progress: true,
+      pairs: %{
+        pair_id => true
+      },
+      participants: %{
+        id => true
+      },
+      participants_number: "participantsNumber",
+      _spread: [[:participants, id], [:pairs, pair_id]]
     }
   end
-
-  def format_pair(pair) do
-    %{
-      members: pair.members,
-      pair_turn: pair.pair_turn,
-      pair_state: pair.pair_state,
-    }
-  end
-
-  def format_contents(data, id) do
-    %{participants: participants} = data
-    participant = Map.get(participants, id)
-    pair_id = get_in(data, [:participants, id, :pair_id])
-    unless is_nil(pair_id) do
-      pair = get_in(data, [:pairs, pair_id])
-      format_participant(participant)
-      |> Map.merge(format_data(data))
-      |> Map.merge(format_pair(pair))
-    else
-      format_participant(participant)
-      |> Map.merge(format_data(data))
-    end
+  
+  def filter_data(data, id) do
+    data
+    |> Transmap.transform(get_filter(data, id), diff: false)
+    |> Map.delete(:participants)
+    |> Map.delete(:pairs)
+    |> Map.put_new(:members, [])
+    |> Map.put_new(:pair_turn, 1)
+    |> Map.put_new(:pair_state, "during")
   end
 end

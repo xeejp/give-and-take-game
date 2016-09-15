@@ -10,8 +10,6 @@ const mapStateToProps = ({}) => ({
 
 class ResetButton extends Component {
   handleClick() {
-    const { dispatch } = this.props
-    dispatch(reset())
     sendData('RESET')
   }
 

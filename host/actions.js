@@ -8,9 +8,6 @@ export const fallChartButton = createAction('FALL_CHART_BUTTON')
 export const showResults = createAction('SHOW_RESULTS')
 
 export const match = createAction('MATCH')
-export const reset = createAction('RESET')
-
-export const changeChartRound = createAction('CHANGE_CHART_ROUND', chart_round => chart_round)
 
 export const changePage = createAction('CHANGE_PAGE', page => page)
 

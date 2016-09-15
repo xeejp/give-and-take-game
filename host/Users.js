@@ -57,8 +57,8 @@ const Pairs = ({ pairs, participants, }) => (
   </table>
 )
 
-const mapStateToProps = ({ pairs, participants, game_round }) => ({
-  pairs, participants, game_round
+const mapStateToProps = ({ pairs, participants, game_round, participantsNumber }) => ({
+  pairs, participants, game_round, participantsNumber
 })
 
 const mapDispatchToProps = (dispatch) => {
@@ -68,11 +68,11 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const Users = ({ pairs, participants, game_round, openParticipantPage }) => (
+const Users = ({ pairs, participants, game_round, openParticipantPage, participantsNumber }) => (
   <div>
     <Card style={{margin: '16px 16px'}}>
       <CardHeader
-        title={"参加者 (" + Object.keys(participants).length + ")"}
+        title={"参加者 (" + participantsNumber + ")"}
         actAsExpander={true}
         showExpandableButton={true}
       />

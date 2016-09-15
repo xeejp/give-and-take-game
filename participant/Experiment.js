@@ -8,11 +8,6 @@ import Finished from './componets/Finished.js'
 import During from './componets/During.js'
 
 import {
-  fallSnackBarFlags,
-  fallSnackBarFlags2,
-} from './actions.js'
-
-import {
   getRoleName,
 } from 'util/index'
 
@@ -41,28 +36,6 @@ const styles = {
 }
 
 class Respond extends Component {
-  constructor() {
-    super()
-    this.handleRequestClose = this.handleRequestClose.bind(this)
-    this.handleRequestClose2 = this.handleRequestClose2.bind(this)
-    this.handleRequestClose3 = this.handleRequestClose3.bind(this)
-  }
-
-  handleRequestClose = () => {
-    const { dispatch } = this.props
-    dispatch(fallSnackBarFlags())
-  }
-
-  handleRequestClose2 = () => {
-    const { dispatch } = this.props
-    dispatch(fallSnackBarFlags2())
-  }
-
-  handleRequestClose3 = () => {
-    const { dispatch } = this.props
-    dispatch(fallSnackBarFlags3())
-  }
-
   renderContents () {
     const { pair_state } = this.props
     switch(pair_state) {

@@ -7,6 +7,3 @@ export const fallChartButton = createAction('FALL_CHART_BUTTON')
 
 export const submitGive = createAction('SUBMIT_GIVE')
 export const submitTake = createAction('SUBMIT_TAKE')
-
-export const fallSnackBarFlags = createAction('FALL_SNACK_BAR_FLAGS')
-export const fallSnackBarFlags2 = createAction('FALL_SNACK_BAR_FLAGS2')
