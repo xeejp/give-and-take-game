@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import throttle from 'react-throttle-render'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import { getRoleName, getStateName } from '../util/index.js'
@@ -100,4 +101,4 @@ const Users = ({ pairs, participants, game_round, openParticipantPage, participa
   </div>
 )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
+export default connect(mapStateToProps, mapDispatchToProps)(throttle(Users, 200))
