@@ -2,7 +2,7 @@ defmodule GiveAndTakeGame.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :give_and_take_game,
+    [app: :xee_give_and_take_game,
      version: "0.1.0",
      build_path: "../../_build",
      config_path: "../../config/config.exs",
