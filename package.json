@@ -14,6 +14,7 @@
     "react-swipeable-views": "^0.7.2",
     "react-tap-event-plugin": "^1.0.0",
     "react-throttle-render": "^1.2.0",
+    "react-tooltip": "^3.2.2",
     "reduce-reducers": "^0.1.2",
     "redux": "^3.5.2",
     "redux-act": "^1.0.0",

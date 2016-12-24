@@ -12,7 +12,8 @@ import FlatButton from 'material-ui/FlatButton';
 import PageSteps from './PageSteps.js'
 import Users from './Users.js'
 import Chart from '../components/Chart.js'
-import MatchingButton from './MatchingButton.js'
+import Config from './Config.js'
+import EditQuestion from './EditQuestion.js'
 import DownloadButton from './DownloadButton'
 
 import throttle from 'react-throttle-render'
@@ -43,7 +44,8 @@ class App extends Component {
         <PageSteps />
         <Users />
         <ThrottledChart />
-        <MatchingButton />
+        <Config />
+        <EditQuestion style={{marginLeft: "2%"}} disabled={game_page != "waiting"}/>
           <DownloadButton
             fileName={"give_and_take_game.csv"}
             list={[

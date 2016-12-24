@@ -84,20 +84,6 @@ const Users = ({ pairs, participants, game_round, openParticipantPage, participa
         />
       </CardText>
     </Card>
-    <Card style={{margin: '16px 16px'}}>
-      <CardHeader
-        title={"ペア (" + Object.keys(pairs).length + ")"}
-        actAsExpander={true}
-        showExpandableButton={true}
-      />
-      <CardText expandable={true}>
-        <Pairs
-          pairs={pairs}
-          participants={participants}
-          game_round={game_round}
-        />
-      </CardText>
-    </Card>
   </div>
 )
 
