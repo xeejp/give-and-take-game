@@ -12,7 +12,7 @@
     "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
     "react-swipeable-views": "^0.7.2",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "react-throttle-render": "^1.2.0",
     "react-tooltip": "^3.2.2",
     "reduce-reducers": "^0.1.2",
