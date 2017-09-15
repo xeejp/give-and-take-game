@@ -5,31 +5,31 @@ import {Card, CardText, CardTitle } from 'material-ui/Card'
 import {List, ListItem} from 'material-ui/List'
 import { getGamemodeName } from 'util/index'
 
-const mapStateToProps = ({ game_round, game_rate, game_point }) => ({
+import { ReadJSON } from '../util/ReadJSON'
+
+const mapStateToProps = ({ game_round, game_rate, game_point, dynamic_text }) => ({
   game_round,
   game_rate,
   game_point,
+  dynamic_text,
 })
 
 class Description extends Component {
   render() {
-    const { game_round, game_rate, game_point } = this.props
+    const { game_round, game_rate, game_point, dynamic_text } = this.props
     return (
       <Card>
-        <CardTitle title="ギブ・アンド・テイクゲーム" subtitle="ルールの説明" />
+        <CardTitle title={ReadJSON().static_text["title"]} subtitle={ReadJSON().static_text["desc"]} />
         <CardText>
-          <p>あなたは誰かとペアになって実験を行います。<br/>
-          参加者はそれぞれ偶数ターン側か奇数ターン側かに分かれています。</p>
-          <p>参加者はそれぞれポイントを持っています。<br/>
-          自分のターンになると、2つの選択を行います。</p>
+          <p>{dynamic_text["description"][1]}</p>
           <List>
             <ListItem
-              primaryText="続行"
-              secondaryText="次のターンに行く"
+              primaryText={dynamic_text["description"][2]}
+              secondaryText={dynamic_text["description"][3]}
             />
             <ListItem
-              primaryText="終了"
-              secondaryText="現在のターンで終了しポイントを確定する"
+              primaryText={dynamic_text["description"][4]}
+              secondaryText={dynamic_text["description"][5]}
             />
           </List> 
         </CardText>

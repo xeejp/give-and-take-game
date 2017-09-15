@@ -88,4 +88,8 @@ defmodule GiveAndTakeGame.Host do
   def filter_data(data) do
     Transmap.transform(data, get_filter(data), diff: false)
   end
+
+  def update_question(data, dynamic_text) do
+    %{data | dynamic_text: dynamic_text}
+  end
 end

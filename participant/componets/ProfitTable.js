@@ -6,6 +6,8 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 import { prizes } from 'util/index.js'
 
+import { ReadJSON, InsertVariable } from '../../util/ReadJSON'
+
 const mapStateToProps = ({ pair_turn, role }) => {
   let enemy_role = role == "even"? "odd" : "even"
   const tableData = []
@@ -21,7 +23,7 @@ const mapStateToProps = ({ pair_turn, role }) => {
   }
   tableData.push(
     {
-      turn: "10ターンで続行",
+      turn: ReadJSON().static_text["turn_continue"],
       selected: false,
       self: prizes[role][10],
       enemy: prizes[enemy_role][10],
@@ -49,13 +51,13 @@ class ProfitTable extends Component {
           >
             <TableRow>
               <TableHeaderColumn colSpan="3" style={{textAlign: 'center'}}>
-                利得表
+                {ReadJSON().static_text["table"]}
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn>ターン</TableHeaderColumn>
-              <TableHeaderColumn>あなたの利得</TableHeaderColumn>
-              <TableHeaderColumn>相手の利得</TableHeaderColumn>
+              <TableHeaderColumn>{ReadJSON().static_text["turn"]}</TableHeaderColumn>
+              <TableHeaderColumn>{ReadJSON().static_text["your_profit"]}</TableHeaderColumn>
+              <TableHeaderColumn>{ReadJSON().static_text["partner_profit"]}</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody

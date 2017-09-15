@@ -4,6 +4,7 @@
   "dependencies": {
     "babel-polyfill": "^6.8.0",
     "clone": "^1.0.2",
+    "json-loader": "^0.5.7",
     "jsondiffpatch": "^0.2.4",
     "material-ui": "^0.15.3",
     "react": "^15.0.2",
@@ -11,7 +12,7 @@
     "react-highcharts": "^10.0.0",
     "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
-    "react-swipeable-views": "^0.7.2",
+    "react-swipeable-views": "^0.7.11",
     "react-tap-event-plugin": "^2.0.1",
     "react-throttle-render": "^1.2.0",
     "react-tooltip": "^3.2.2",

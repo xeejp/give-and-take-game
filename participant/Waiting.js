@@ -6,17 +6,17 @@ import CircularProgress from 'material-ui/CircularProgress'
 
 import { getGamemodeName } from 'util/index'
 
+import { ReadJSON } from '../util/ReadJSON'
+
 const mapStateToProps = ({ participantsNumber }) => ({
   participantsNumber,
 })
 
 const Waiting = ({ participantsNumber }) => (
   <Card>
-    <CardTitle title="ギブ・アンド・テイクゲーム" subtitle="待機画面" />
+    <CardTitle title={ReadJSON().static_text["title"]} subtitle={ReadJSON().static_text["waiting"][0]} />
     <CardText>
-      <p>参加者の登録を待っています。</p>
-      <p>この画面のまましばらくお待ち下さい。</p>
-      <p>現在{participantsNumber}人が参加しています。 </p>
+      {ReadJSON().static_text["waiting"][1]}
     </CardText>
     <div style={{textAlign: "center"}}>
       <CircularProgress size={2}/>

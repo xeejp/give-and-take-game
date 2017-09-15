@@ -7,19 +7,22 @@ import {
   getRoleName,
 } from 'util/index'
 
-const mapStateToProps = ({ role }) => ({
-  role
+import { ReadJSON, InsertVariable } from '../../util/ReadJSON'
+
+const mapStateToProps = ({ role, dynamic_text }) => ({
+  role,
+  dynamic_text,
 })
-const Finished = ({ role }) => (() => {
+const Finished = ({ role, dynamic_text }) => (() => {
   return (
     <div>
       <Card>
         <CardHeader
-          title={getRoleName(role) + "側"}
-          subtitle="終了待ち"
+          title={InsertVariable(dynamic_text["side"], { role: getRoleName(role) })}
+          subtitle={dynamic_text["stay"]}
         />
         <CardText>
-          <p>このペアの実験は終了しました。他のペアが終了するまでお待ち下さい。</p>
+          <p>{dynamic_text["finished"]}</p>
         </CardText>
       </Card>
     </div>

@@ -12,6 +12,8 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider'
 
+import { ReadJSON, InsertVariable } from '../util/ReadJSON'
+
 import { getPageName, game_pages } from 'util/index'
 
 import {
@@ -89,13 +91,13 @@ class PageSteps extends React.Component {
     return (
       <div style={{margin: '16px 18px'}}>
         <FlatButton
-          label="戻る"
+          label={ReadJSON().static_text["back"]}
           disabled={game_pages[0] == game_page}
           onTouchTap={this.handlePrev}
           style={{marginRight: "12px"}}
         />
         <RaisedButton
-          label={game_pages[3] === game_page ? '実験を続ける' : '次へ'}
+          label={game_pages[3] === game_page ? ReadJSON().static_text["continue_ex"] : ReadJSON().static_text["next"]}
           style={{marginRight: 4}}
           primary={true}
           onTouchTap={this.handleNext}

@@ -14,6 +14,8 @@ import LeftIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 
 import { fallChartButton, changeChartTurn } from 'host/actions.js'
 
+import { ReadJSON, InsertVariable } from '../util/ReadJSON'
+
 function getFirstGive(results){
   return (results[1] && results[2])?
     results[1].give? results[1].give : 0 + results[2].give? results[2].give : 0
@@ -49,8 +51,7 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       plotShadow: false,
       type: 'pie'
     },
-    title: { text: "最初の選択" },
-    credits: { text: 'xee.jp', href: 'https://xee.jp/' },
+    title: { text: ReadJSON().static_text["chart"]["first_choice"] },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
@@ -65,14 +66,14 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       }
     },
     series: [{
-      name: '割合',
+      name: ReadJSON().static_text["chart"]["rate"],
       colorByPoint: true,
       data: [
         {
-          name: '続行',
+          name: ReadJSON().static_text["chart"]["continue"],
           y: getFirstGive(results)
         }, {
-          name: '終了',
+          name: ReadJSON().static_text["chart"]["end"],
           y: getFirstTake(results)
         }
       ]
@@ -85,7 +86,7 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       plotShadow: false,
       type: 'pie'
     },
-    title: { text: "9ターンの選択" },
+    title: { text: ReadJSON().static_text["chart"]["9turn"] },
     credits: { text: 'xee.jp', href: 'https://xee.jp/' },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -101,14 +102,14 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       }
     },
     series: [{
-      name: '割合',
+      name: ReadJSON().static_text["chart"]["rate"],
       colorByPoint: true,
       data: [
         {
-          name: '続行',
+          name: ReadJSON().static_text["chart"]["continue"],
           y: getGive(9, results)
         }, {
-          name: '終了',
+          name: ReadJSON().static_text["chart"]["end"],
           y: getTake(9, results)
         }
       ]
@@ -121,8 +122,7 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       plotShadow: false,
       type: 'pie'
     },
-    title: { text: "10ターンの選択" },
-    credits: { text: 'xee.jp', href: 'https://xee.jp/' },
+    title: { text: ReadJSON().static_text["chart"]["10turn"] },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
@@ -137,14 +137,14 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
       }
     },
     series: [{
-      name: '割合',
+      name: ReadJSON().static_text["chart"]["rate"],
       colorByPoint: true,
       data: [
         {
-          name: '続行',
+          name: ReadJSON().static_text["chart"]["continue"],
           y: getGive(10, results)
         }, {
-          name: '終了',
+          name: ReadJSON().static_text["chart"]["end"],
           y: getTake(10, results)
         }
       ]
@@ -152,29 +152,28 @@ const mapStateToProps = ({ pairs, results, chart_turn, role }) => {
   }
   const all_config = {
     chart: { type: "column" },
-    credits: { text: 'xee.jp', href: 'https://xee.jp/' },
-    title: { text: "終了が選択されたターン" },
+    title: { text: ReadJSON().static_text["chart"]["end_turn"] },
     xAxis: {
-      categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "終了なし"],
+      categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ReadJSON().static_text["chart"]["no_end"]],
       crosshair: true,
-      title: { text: "ターン" },
+      title: { text: ReadJSON().static_text["chart"]["turn"] },
     },
     yAxis: [
       {
         min: 0,
-        title: { text: "ペア数" },
+        title: { text: ReadJSON().static_text["chart"]["cont"] },
         labels: { step: 1, },
       }
     ],
     tooltip: {
       formatter: function () {
-        return '<b>' + this.x + 'ポイント</b><br/>' +
+        return '<b>' + InsertVariable(ReadJSON().static_text["chart"]["point"], { point: this.x }) + '</b><br/>' +
           this.series.name + ': ' + this.y
       }
     },
     series: [
       {
-        name: "終了したターン",
+        name: ReadJSON().static_text["chart"]["end_turn"],
         data: compData(results),
       },
     ],
@@ -260,7 +259,7 @@ class Chart extends Component {
         onExpandChange={this.handleExpandChange}
       >
         <CardHeader
-          title="グラフ"
+          title={ReadJSON().static_text["chart"]["graph"]}
           actAsExpander={true}
           showExpandableButton={true}
         />
@@ -273,28 +272,28 @@ class Chart extends Component {
           <div>
             { chart_turn != 1?
               <IconButton iconStyle={styles.mediumIcon} style={styles.left}
-                tooltip="戻る" onClick={this.handleDec}>
+                tooltip={ReadJSON().static_text["back"]} onClick={this.handleDec}>
                 <LeftIcon/>
               </IconButton>
             :
               <IconButton iconStyle={styles.mediumIcon} style={styles.left}
-                tooltip="最初の円グラフ">
+                tooltip={ReadJSON().static_text["chart"]["first_circle_graph"]}>
                 <LeftIcon color={grey300}/>
               </IconButton>
             }
             { chart_turn != 3?
               <IconButton iconStyle={styles.mediumIcon} style={styles.right}
-                tooltip="進む" onClick={this.handleInc} >
+                tooltip={ReadJSON().static_text["chart"]["next"]} onClick={this.handleInc} >
                 <RightIcon/>
               </IconButton>
             :
               <IconButton iconStyle={styles.mediumIcon} style={styles.right}
-                tooltip="最後の円グラフ">
+                tooltip={ReadJSON().static_text["chart"]["last_circle_graph"]}>
                 <RightIcon color={grey300}/>
               </IconButton>
             }
             <span style={{clear: "both", margin: "auto"}}/>
-            <Chip style={{margin: "auto"}}>表示円グラフ: {chart_turn}</Chip>
+            <Chip style={{margin: "auto"}}>{InsertVariable(ReadJSON().static_text["chart"]["visible_circle_graph"], { turn: chart_turn})}</Chip>
           </div>
           <Highcharts style={{marginTop: 12}} config={all_config} callback={this.handleCallback}></Highcharts>
         </CardText>

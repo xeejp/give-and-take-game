@@ -12,8 +12,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import { getRoleName } from '../../util/index.js'
 
-const mapStateToProps = ({ pair_turn, role, point }) => ({
-  pair_turn, role, point
+import { ReadJSON, InsertVariable } from '../../util/ReadJSON.js'
+
+const mapStateToProps = ({ pair_turn, role, point, dynamic_text }) => ({
+  pair_turn, role, point, dynamic_text
 })
 
 import {
@@ -41,7 +43,7 @@ class During extends Component {
   }
 
   render() {
-    const { pair_turn, role, select_temp, point } = this.props
+    const { pair_turn, role, select_temp, point, dynamic_text } = this.props
     const style = {
       margin: 12,
     }
@@ -52,7 +54,7 @@ class During extends Component {
       let imt = role == "even"? (i+1) % 2 == 1 : (i+1) % 2 == 0
       step_title[i] = (
         <Step key={i}>
-          <StepLabel>{imt? "自分" : "相手"}</StepLabel>
+          <StepLabel>{imt? dynamic_text["me"] : dynamic_text["you"]}</StepLabel>
         </Step>
       )
     }
@@ -63,28 +65,28 @@ class During extends Component {
         </Stepper>
         <Card style={{marginBottom: 12}}>
           <CardHeader
-            title={"あなたは" + getRoleName(role) + "側です"}
-            subtitle={is_myTurn? "選択してください。" : getRoleName(enemy) + "側が選択中。しばらくお待ちください。" }
+            title={InsertVariable(dynamic_text["your_role"], { role: getRoleName(role) })}
+            subtitle={is_myTurn? dynamic_text["choice"] : InsertVariable(dynamic_text["your_choice"], { role: getRoleName(role) }) }
           />
           <CardText>
             {is_myTurn?
               <span style={{margin: 4}}>
                 <RaisedButton style={{float: "left", width: "45%"}}
-                  label={"終了 (" + point + "ポイントで確定)"}
+                  label={InsertVariable(dynamic_text["stop"], { point: point })}
                   secondary={true} onClick={this.handleTake}
                 />
                 <RaisedButton style={{float: "right", width: "45%"}}
-                  label={"続行"}
+                  label={dynamic_text["continue"]}
                   primary={true} onClick={this.handleGive}
                 />
               </span>
             :
               <span style={{margin: 4}}>
                 <RaisedButton style={{float: "left", width: "45%"}}
-                  label="終了"
+                  label={dynamic_text["end"]}
                   secondary={true} disabled={true}/>
                 <RaisedButton style={{float: "right", width: "45%"}}
-                  label="続行"
+                  label={dynamic_text["continue"]}
                   primary={true} disabled={true}/>
               </span>
             }

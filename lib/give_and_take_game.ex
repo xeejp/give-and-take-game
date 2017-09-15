@@ -22,6 +22,7 @@ defmodule GiveAndTakeGame do
         participants: %{},
         pairs: %{},
         results: %{},
+        dynamic_text: %{}
       }
     }}
   end
@@ -67,6 +68,7 @@ defmodule GiveAndTakeGame do
       {"MATCH", _} -> Host.match(data)
       {"RESET", _} -> Host.reset(data)
       {"CHANGE_PAGE", page} -> Host.change_page(data, page)
+      {"UPDATE_QUESTION", dynamic_text} -> Host.update_question(data, dynamic_text)
       {"SHOW_RESULTS", results} -> Actions.show_results(data, results)
       _ -> {:ok, %{data: data}}
     end

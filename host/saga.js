@@ -6,6 +6,7 @@ import {
   fetchContents,
   match,
   changePage,
+  updateQuestion,
 } from './actions.js'
 
 import {
@@ -40,10 +41,18 @@ function* changePageSaga() {
   }
 }
 
+function* updateQuestionSaga() {
+  while(true) {
+    const { payload } = yield take(`${updateQuestion}`)
+    sendData('UPDATE_QUESTION', payload)
+  }
+}
+
 function* saga() {
   yield fork(fetchContentsSaga)
   yield fork(matchSaga)
   yield fork(changePageSaga)
+  yield fork(updateQuestionSaga)
 }
 
 export default saga

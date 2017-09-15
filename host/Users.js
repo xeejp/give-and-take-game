@@ -6,6 +6,8 @@ import throttle from 'react-throttle-render'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import { getRoleName, getStateName } from '../util/index.js'
 
+import { ReadJSON, InsertVariable } from '../util/ReadJSON'
+
 import { openParticipantPage } from './actions'
 
 const User = ({ id, role, point, pair_id, openParticipantPage }) => (
@@ -18,7 +20,7 @@ const User = ({ id, role, point, pair_id, openParticipantPage }) => (
 
 const UsersList = ({participants, openParticipantPage }) => (
   <table>
-    <thead><tr><th>ID</th><th>役割</th><td>ポイント</td><td>所属ペアID</td></tr></thead>
+    <thead><tr><th>{ReadJSON().static_text["id"]}</th><th>{ReadJSON().static_text["role"]}</th><td>{ReadJSON().static_text["point"]}</td><td>{ReadJSON().static_text["pair_id"]}</td></tr></thead>
     <tbody>
       {
         Object.keys(participants).map(id => (
@@ -42,7 +44,7 @@ const Pair = ({ id, pair_turn, pair_state  }) => (
 
 const Pairs = ({ pairs, participants, }) => (
   <table>
-    <thead><tr><th>ID</th><th>ターン</th><th>状況</th></tr></thead>
+    <thead><tr><th>{ReadJSON().static_text["id"]}</th><th>{ReadJSON().static_text["turn"]}</th><th>{ReadJSON().static_text["state"]}</th></tr></thead>
     <tbody>
       {
         Object.keys(pairs).map(id => (
@@ -73,7 +75,7 @@ const Users = ({ pairs, participants, game_round, openParticipantPage, participa
   <div>
     <Card style={{margin: '16px 16px'}}>
       <CardHeader
-        title={"登録者 " + participantsNumber + "人"}
+        title={InsertVariable(ReadJSON().static_text["users"], { users: participantsNumber })}
         actAsExpander={true}
         showExpandableButton={true}
       />

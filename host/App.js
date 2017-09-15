@@ -16,6 +16,8 @@ import Config from './Config.js'
 import EditQuestion from './EditQuestion.js'
 import DownloadButton from './DownloadButton'
 
+import { ReadJSON, InsertVariable } from '../util/ReadJSON.js'
+
 import throttle from 'react-throttle-render'
 
 const ThrottledChart = throttle(Chart, 200)
@@ -49,19 +51,19 @@ class App extends Component {
           <DownloadButton
             fileName={"give_and_take_game.csv"}
             list={[
-              ["ギブアンドテイクゲーム"],
-              ["実験日", new Date()],
-              ["登録者数", Object.keys(participants).length],
-              ["ペア数", Object.keys(pairs).length],
-              ["ID"],
+              [ReadJSON().static_text["title"]],
+              [ReadJSON().static_text["file"][0], new Date()],
+              [ReadJSON().static_text["file"][1], Object.keys(participants).length],
+              [ReadJSON().static_text["file"][2], Object.keys(pairs).length],
+              [ReadJSON().static_text["file"][3]],
             ].concat(
               Object.keys(participants).map(id => [id])
             ).concat([
-              ["", "1ターン", "2ターン", "3ターン", "4ターン", "5ターン", "6ターン", "7ターン", "8ターン", "9ターン", "10ターン"]
+              [""].concat(Array.apply(null, Array(10)).map((t, i) => InsertVariable(ReadJSON().static_text["file"][4], { turn: i + 1 })))
             ]).concat([
-              ["give"].concat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (i in results && 'give' in results[i])? results[i]['give'] : 0))
+              [ReadJSON().static_text["file"][5]].concat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (i in results && 'give' in results[i])? results[i]['give'] : 0))
             ]).concat([
-              ["take"].concat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (i in results && 'take' in results[i])? results[i]['take'] : 0))
+              [ReadJSON().static_text["file"][6]].concat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (i in results && 'take' in results[i])? results[i]['take'] : 0))
             ])}
             style={{marginLeft: '2%'}}
             disabled={game_page != "result"}

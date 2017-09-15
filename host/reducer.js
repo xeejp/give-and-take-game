@@ -10,6 +10,7 @@ import {
   fallChartButton,
   intoLoading,
   exitLoading,
+  updateQuestion,
 } from './actions.js'
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   loading: true,
   results: {},
   chart_turn: 1,
+  dynamic_text: null,
 }
 
 const reducer = concatenateReducers([
@@ -27,6 +29,7 @@ const reducer = concatenateReducers([
     'update contents': (_, { payload }) => payload,
     [changeChartTurn]: (_, { payload }) => ({ chart_turn: payload, chart_button: true}),
     [fallChartButton]: () => ({ chart_button: false}),
+    [updateQuestion]: (_, { payload }) => ({ dynamic_text: payload })
   }, initialState),
 ])
 

@@ -86,6 +86,7 @@ defmodule GiveAndTakeGame.Participant do
     %{
       game_page: true,
       game_progress: true,
+      dynamic_text: true,
       pairs: %{
         pair_id => true
       },

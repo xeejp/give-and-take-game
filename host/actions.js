@@ -14,4 +14,6 @@ export const changePage = createAction('CHANGE_PAGE', page => page)
 export const intoLoading = createAction('INTO_LOADING')
 export const exitLoading = createAction('EXIT_LOADING')
 
+export const updateQuestion = createAction('UPDATE_QUESTION', dynamic_text => dynamic_text)
+
 export const openParticipantPage = createAction('open participant page')

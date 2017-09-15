@@ -1,0 +1,100 @@
+{
+  "dynamic_text": {
+    "description": [
+      "説明",
+      "あなたは誰かとペアになって実験を行います。\n参加者はそれぞれ偶数ターン側か奇数ターン側かに分かれています。\n\n参加者はそれぞれポイントを持っています。\n自分のターンになると、2つの選択を行います。",
+      "続行",
+      "次のターンに行く",
+      "終了",
+      "現在のターンで終了しポイントを確定する"
+    ],
+    "turn": "ターン: <turn> / 10",
+    "last_turn": "最後のターン",
+    "remain_turn": "残りターン: <turn>回",
+    "all_progress": "参加者全体の進捗: <progress> %",
+    "point": "ポイント: <point>",
+    "me": "自分",
+    "you": "相手",
+    "your_role": "あなたは<role>側です",
+    "my_choice": "選択してください。",
+    "your_choice": "<role>側が選択中。しばらくお待ちください。",
+    "stop": "終了 (<point>ポイントで確定)",
+    "end": "終了",
+    "continue": "続行",
+    "side": "<role>側",
+    "stay": "終了待ち",
+    "finished": "このペアの実験は終了しました。他のペアが終了するまでお待ち下さい。"
+  },
+  "static_text": {
+    "title": "ギブ・アンド・テイクゲーム",
+    "desc": "ルールの説明",
+    "waiting": [
+      "待機画面",
+      "参加者の登録を待っています。\nこの画面のまましばらくお待ち下さい。\n現在<users>人が参加しています。"
+    ],
+    "pages": [
+      "待機",
+      "説明",
+      "実験",
+      "結果"
+    ],
+    "roles": [
+      "見学者",
+      "奇数ターン",
+      "偶数ターン"
+    ],
+    "status": [
+      "実験中",
+      "終了"
+    ],
+    "file": [
+      "実験日",
+      "登録者数",
+      "ペア数",
+      "ID",
+      "<turn>ターン",
+      "give",
+      "take"
+    ],
+    "question": "問題",
+    "apply": "適用",
+    "cancel": "キャンセル",
+    "reset": "すべてリセット",
+    "back": "戻る",
+    "next": "次へ",
+    "continue_ex": "実験を続ける",
+    "editor": "編集画面",
+    "send_message": "設定を送信しました。",
+    "reset_message": "設定を初期化しました。",
+    "id": "ID",
+    "role": "役割",
+    "point": "ポイント",
+    "pair_id": "所属ペアID",
+    "turn": "ターン",
+    "state": "状況",
+    "users": "登録者<users>人",
+    "turn_continue": "10ターンで続行",
+    "table": "利得表",
+    "your_profit": "あなたの利得",
+    "partner_profit": "相手の利得",
+    "chart": {
+      "graph": "グラフ",
+      "first_choice": "最初の選択",
+      "rate": "割合",
+      "continue": "続行",
+      "end": "終了",
+      "9turn": "9ターンの選択",
+      "10turn": "10ターンの選択",
+      "choice_end_turn": "終了が選択されたターン",
+      "no_end": "終了なし",
+      "turn": "ターン",
+      "count": "ペア数",
+      "point": "<point>ポイント",
+      "end_turn": "終了したターン",
+      "first_circle_graph": "最初の円グラフ",
+      "next": "進む",
+      "last_circle_graph": "最後の円グラフ",
+      "visible_circle_graph": "表示円グラフ: <turn>"
+    }
+  }
+}
