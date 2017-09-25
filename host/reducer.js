@@ -11,6 +11,8 @@ import {
   intoLoading,
   exitLoading,
   updateQuestion,
+  updateConfig,
+  visit,
 } from './actions.js'
 
 const initialState = {
@@ -29,7 +31,9 @@ const reducer = concatenateReducers([
     'update contents': (_, { payload }) => payload,
     [changeChartTurn]: (_, { payload }) => ({ chart_turn: payload, chart_button: true}),
     [fallChartButton]: () => ({ chart_button: false}),
-    [updateQuestion]: (_, { payload }) => ({ dynamic_text: payload })
+    [updateQuestion]: (_, { payload }) => ({ dynamic_text: payload }),
+    [updateConfig]: (_, { payload }) => ({ config: payload }),
+    [visit]: (_, { payload }) => ({ isFirstVisit: payload }),
   }, initialState),
 ])
 

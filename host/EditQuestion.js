@@ -45,13 +45,93 @@ class EditQuestion extends Component {
   QuestionTab(){
     return (
       <span>
-
+        <TextField
+          hintText={ReadJSON().dynamic_text["turn"]}
+          defaultValue={this.state.dynamic_text["turn"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["turn"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["remain_turn"]}
+          defaultValue={this.state.dynamic_text["remain_turn"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["remain_turn"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["last_turn"]}
+          defaultValue={this.state.dynamic_text["last_turn"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["last_turn"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["all_progress"]}
+          defaultValue={this.state.dynamic_text["all_progress"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["all_progress"])}
+        /><br/>
+        <TextField
+          hintText={ReadJSON().dynamic_text["me"]}
+          defaultValue={this.state.dynamic_text["me"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["me"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["you"]}
+          defaultValue={this.state.dynamic_text["you"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["you"])}
+        /><br/>
+        <TextField
+          hintText={ReadJSON().dynamic_text["point"]}
+          defaultValue={this.state.dynamic_text["point"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["point"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["your_role"]}
+          defaultValue={this.state.dynamic_text["your_role"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["your_role"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["my_choice"]}
+          defaultValue={this.state.dynamic_text["my_choice"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["my_choice"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["your_choice"]}
+          defaultValue={this.state.dynamic_text["your_choice"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["your_choice"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["stop"]}
+          defaultValue={this.state.dynamic_text["stop"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["stop"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["end"]}
+          defaultValue={this.state.dynamic_text["end"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["end"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["continue"]}
+          defaultValue={this.state.dynamic_text["continue"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["continue"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["side"]}
+          defaultValue={this.state.dynamic_text["side"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["side"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["stay"]}
+          defaultValue={this.state.dynamic_text["stay"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["stay"])}
+        /><br/>
+        <TextField
+          hintText={ReadJSON().dynamic_text["finished"]}
+          defaultValue={this.state.dynamic_text["finished"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["finished"])}
+          fullWidth={true}
+          multiLine={true}
+        />
       </span>
     )
   }
 
   DescriptionTab() {
-    console.log(this.state.dynamic_text)
     return (
       <span>
         <TextField

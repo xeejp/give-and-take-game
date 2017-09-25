@@ -77,6 +77,7 @@ defmodule GiveAndTakeGame.Host do
   def get_filter(data) do
     %{
       _default: true,
+      prizes: false,
       participants_number: "participantsNumber"
     }
   end
@@ -91,5 +92,21 @@ defmodule GiveAndTakeGame.Host do
 
   def update_question(data, dynamic_text) do
     %{data | dynamic_text: dynamic_text}
+  end
+
+  def update_config(data, config) do
+    [[e1, e2, e3], [o1, o2, o3]] = config
+    {a, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(e1, fn _, acc -> {acc, acc + e3} end)
+    {b, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(e2, fn _, acc -> {acc, acc + e3} end)
+    even = Enum.zip(a, b) |> Enum.map(fn {x, y} -> [x, y] end) |> Enum.concat
+    {c, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(o1, fn _, acc -> {acc, acc + o3} end)
+    {d, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(o2, fn _, acc -> {acc, acc + o3} end)
+    odd  = Enum.zip(c, d) |> Enum.map(fn {x, y} -> [x, y] end) |> Enum.concat
+    IO.inspect %{even: even, odd: odd}
+    %{data | config: config, prizes: %{even: even, odd: odd}}
+  end
+
+  def visit(data) do
+    %{data | isFirstVisit: false}
   end
 end

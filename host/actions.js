@@ -16,4 +16,8 @@ export const exitLoading = createAction('EXIT_LOADING')
 
 export const updateQuestion = createAction('UPDATE_QUESTION', dynamic_text => dynamic_text)
 
+export const updateConfig = createAction('UPDATE_CONFIG', config => config)
+
+export const visit = createAction('VISIT')
+
 export const openParticipantPage = createAction('open participant page')

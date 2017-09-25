@@ -32,8 +32,6 @@ export function SplitAndInsert(text, dynamic_text) {
 }
 
 export function InsertVariable(text, variables, dynamic_variables) {
-  console.log(text)
-  console.log(variables)
   if(dynamic_variables) Object.assign(variables, dynamic_variables)
   Object.keys(variables).forEach(key => text = text.split('<' + key + '>').join(variables[key]))
   return text;

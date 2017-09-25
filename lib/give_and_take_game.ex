@@ -22,6 +22,15 @@ defmodule GiveAndTakeGame do
         participants: %{},
         pairs: %{},
         results: %{},
+        isFirstVisit: true,
+        config: [
+          [0, -1, 2],
+          [0,  3, 2],
+        ],
+        prizes: %{
+          even: {0, -1, 2, 1, 4, 3, 6, 5, 8, 7, 10},
+          odd:  {0, 3, 2, 5, 4, 7, 6, 9, 8, 11, 10},
+        },
         dynamic_text: %{}
       }
     }}
@@ -69,6 +78,8 @@ defmodule GiveAndTakeGame do
       {"RESET", _} -> Host.reset(data)
       {"CHANGE_PAGE", page} -> Host.change_page(data, page)
       {"UPDATE_QUESTION", dynamic_text} -> Host.update_question(data, dynamic_text)
+      {"UPDATE_CONFIG", config} -> Host.update_config(data, config)
+      {"VISIT", _} -> Host.visit(data)
       {"SHOW_RESULTS", results} -> Actions.show_results(data, results)
       _ -> {:ok, %{data: data}}
     end
