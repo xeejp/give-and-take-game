@@ -2,10 +2,6 @@ import concatenateReducers from 'redux-concatenate-reducers'
 import { handleAction, handleActions } from 'redux-actions'
 
 import {
-  prizes,
-} from 'util/index'
-
-import {
   changeChartTurn,
   fallChartButton,
   intoLoading,

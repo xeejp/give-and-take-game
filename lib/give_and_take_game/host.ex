@@ -98,11 +98,11 @@ defmodule GiveAndTakeGame.Host do
     [[e1, e2, e3], [o1, o2, o3]] = config
     {a, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(e1, fn _, acc -> {acc, acc + e3} end)
     {b, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(e2, fn _, acc -> {acc, acc + e3} end)
-    even = Enum.zip(a, b) |> Enum.map(fn {x, y} -> [x, y] end) |> Enum.concat
+    even = (Enum.zip(a, b) |> Enum.map(fn {x, y} -> [x, y] end) |> Enum.concat) ++ [e1 + e3 * 5]
     {c, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(o1, fn _, acc -> {acc, acc + o3} end)
     {d, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(o2, fn _, acc -> {acc, acc + o3} end)
-    odd  = Enum.zip(c, d) |> Enum.map(fn {x, y} -> [x, y] end) |> Enum.concat
-    IO.inspect %{data | config: config, prizes: %{even: even |> List.to_tuple, odd: odd |> List.to_tuple}}
+    odd  = (Enum.zip(c, d) |> Enum.map(fn {x, y} -> [x, y] end) |> Enum.concat) ++ [o1 + o3 * 5]
+    %{data | config: config, prizes: %{even: even |> List.to_tuple, odd: odd |> List.to_tuple}, prizes_l: %{even: even, odd: odd}}
   end
 
   def visit(data) do

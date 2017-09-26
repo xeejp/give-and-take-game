@@ -10,12 +10,14 @@ import {
 } from 'material-ui/Stepper'
 import RaisedButton from 'material-ui/RaisedButton';
 
+import { Slider } from 'xee-components'
+
 import { getRoleName } from '../../util/index.js'
 
 import { ReadJSON, InsertVariable } from '../../util/ReadJSON.js'
 
-const mapStateToProps = ({ pair_turn, role, point, dynamic_text }) => ({
-  pair_turn, role, point, dynamic_text
+const mapStateToProps = ({ pair_turn, role, point, dynamic_text, prizes }) => ({
+  pair_turn, role, point, dynamic_text, prizes
 })
 
 import {
@@ -43,7 +45,7 @@ class During extends Component {
   }
 
   render() {
-    const { pair_turn, role, select_temp, point, dynamic_text } = this.props
+    const { pair_turn, role, select_temp, point, dynamic_text, prizes } = this.props
     const style = {
       margin: 12,
     }
@@ -54,7 +56,7 @@ class During extends Component {
       let imt = role == "even"? (i+1) % 2 == 1 : (i+1) % 2 == 0
       step_title[i] = (
         <Step key={i}>
-          <StepLabel>{imt? dynamic_text["me"] : dynamic_text["you"]}</StepLabel>
+          <StepLabel>{imt? dynamic_text["you"] : dynamic_text["enemy"]}</StepLabel>
         </Step>
       )
     }
@@ -66,11 +68,22 @@ class During extends Component {
         <Card style={{marginBottom: 12}}>
           <CardHeader
             title={InsertVariable(dynamic_text["your_role"], { role: getRoleName(role) })}
-            subtitle={is_myTurn? dynamic_text["my_choice"] : InsertVariable(dynamic_text["your_choice"], { role: getRoleName(enemy) }) }
+            subtitle={is_myTurn? dynamic_text["my_choice"] : InsertVariable(dynamic_text["enemy_choice"], { role: getRoleName(enemy) }) }
           />
           <CardText>
             {is_myTurn?
               <span style={{margin: 4}}>
+                <div style={{ position: "relative", marginBottom: "5%"}}>
+                  <h4 style={{ position: "absolute",  left: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{"あなたの利得: " + prizes[role][pair_turn - 1]}</h4>
+                  <h4 style={{ position: "absolute", right: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{"相手の利得: " + prizes[enemy][pair_turn - 1]}</h4>
+                  <div style={{ clear: "both" }}></div>
+                  <Slider
+                    min={0}
+                    max={prizes[role][pair_turn - 1] + prizes[enemy][pair_turn - 1]}
+                    divisor={10}
+                    value={prizes[role][pair_turn - 1]}
+                  />
+                </div>
                 <RaisedButton style={{float: "left", width: "45%"}}
                   label={InsertVariable(dynamic_text["stop"], { point: point })}
                   secondary={true} onClick={this.handleTake}
@@ -82,6 +95,17 @@ class During extends Component {
               </span>
             :
               <span style={{margin: 4}}>
+                <div style={{ position: "relative", marginBottom: "5%"}}>
+                  <h4 style={{ position: "absolute",  left: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{"あなたの利得: " + prizes[role][pair_turn - 1]}</h4>
+                  <h4 style={{ position: "absolute", right: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{"相手の利得: " + prizes[enemy][pair_turn - 1]}</h4>
+                  <div style={{ clear: "both" }}></div>
+                  <Slider
+                    min={0}
+                    max={prizes[role][pair_turn - 1] + prizes[enemy][pair_turn - 1]}
+                    divisor={10}
+                    value={prizes[role][pair_turn - 1]}
+                  />
+                </div>
                 <RaisedButton style={{float: "left", width: "45%"}}
                   label={dynamic_text["end"]}
                   secondary={true} disabled={true}/>

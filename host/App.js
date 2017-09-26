@@ -5,6 +5,7 @@ import {
   fetchContents,
   intoLoading,
   exitLoading,
+  changePage,
 } from './actions.js'
 
 import FlatButton from 'material-ui/FlatButton';
@@ -38,6 +39,16 @@ class App extends Component {
     dispatch(fetchContents())
     dispatch(exitLoading())
   }
+
+    componentWillReceiveProps({ pairs, game_page }) {
+      if(game_page == "experiment") {
+        for(var key in pairs) {
+          if(pairs[key].pair_state != "finished") return
+        }
+        const { dispatch } = this.props
+        dispatch(changePage("result"))
+      }
+    }
 
   render() {
     const { participants, pairs, results, game_page } = this.props

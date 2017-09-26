@@ -99,6 +99,7 @@ class Config extends Component {
     if(event.target.value == '0-' && value[value.length - 1] != 2) temp[value[value.length - 1]] = '-'
     else if(event.target.value == '0x' || event.target.value == '-') temp[value[value.length - 1]] = 0
     else temp[value[value.length - 1]] = (event.target.value.length > 0)? parseInt(event.target.value) : 0
+    if(isNaN(temp[value[value.length - 1]])) temp[value[value.length - 1]] = 0
     this.setState({
       config: config,
       disabled: !(config[0][0] >= config[0][1] && config[1][1] >= config[1][0] && config[0][2] > 0 && config[1][2] > 0)

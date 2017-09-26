@@ -66,14 +66,14 @@ class EditQuestion extends Component {
           onBlur={this.handleChangeDynamicText.bind(this, ["all_progress"])}
         /><br/>
         <TextField
-          hintText={ReadJSON().dynamic_text["me"]}
-          defaultValue={this.state.dynamic_text["me"]}
-          onBlur={this.handleChangeDynamicText.bind(this, ["me"])}
-        />　
-        <TextField
           hintText={ReadJSON().dynamic_text["you"]}
           defaultValue={this.state.dynamic_text["you"]}
           onBlur={this.handleChangeDynamicText.bind(this, ["you"])}
+        />　
+        <TextField
+          hintText={ReadJSON().dynamic_text["enemy"]}
+          defaultValue={this.state.dynamic_text["enemy"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["enemy"])}
         /><br/>
         <TextField
           hintText={ReadJSON().dynamic_text["point"]}
@@ -91,9 +91,9 @@ class EditQuestion extends Component {
           onBlur={this.handleChangeDynamicText.bind(this, ["my_choice"])}
         />　
         <TextField
-          hintText={ReadJSON().dynamic_text["your_choice"]}
-          defaultValue={this.state.dynamic_text["your_choice"]}
-          onBlur={this.handleChangeDynamicText.bind(this, ["your_choice"])}
+          hintText={ReadJSON().dynamic_text["enemy_choice"]}
+          defaultValue={this.state.dynamic_text["enemy_choice"]}
+          onBlur={this.handleChangeDynamicText.bind(this, ["enemy_choice"])}
         />　
         <TextField
           hintText={ReadJSON().dynamic_text["stop"]}

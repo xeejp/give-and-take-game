@@ -4,11 +4,9 @@ import { connect } from 'react-redux'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
 
-import { prizes } from 'util/index.js'
-
 import { ReadJSON, InsertVariable } from '../../util/ReadJSON'
 
-const mapStateToProps = ({ pair_turn, role }) => {
+const mapStateToProps = ({ pair_turn, role, prizes }) => {
   let enemy_role = role == "even"? "odd" : "even"
   const tableData = []
   for(let i = pair_turn-1; i < 10; i++) {

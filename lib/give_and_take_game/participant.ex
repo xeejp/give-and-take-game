@@ -44,6 +44,7 @@ defmodule GiveAndTakeGame.Participant do
           })
        })
     )
+    |> put_results
   end
 
   def submit_take(data, id) do
@@ -69,6 +70,13 @@ defmodule GiveAndTakeGame.Participant do
           })
        })
     )
+    |> put_results
+  end
+
+  def put_results(data) do
+    data |> Map.put(:participants, data.participants |> Enum.map(fn {id, participant} ->
+        {id, participant |> Map.put(:results, if get_in(data, [:pairs, participant.pair_id, :pair_state]) == "finished" do data.results else %{} end)}
+      end) |> Enum.into(%{}))
   end
 
   # utils
@@ -87,6 +95,7 @@ defmodule GiveAndTakeGame.Participant do
       game_page: true,
       game_progress: true,
       dynamic_text: true,
+      prizes_l: "prizes",
       pairs: %{
         pair_id => true
       },
