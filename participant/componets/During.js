@@ -66,7 +66,7 @@ class During extends Component {
         <Card style={{marginBottom: 12}}>
           <CardHeader
             title={InsertVariable(dynamic_text["your_role"], { role: getRoleName(role) })}
-            subtitle={is_myTurn? dynamic_text["choice"] : InsertVariable(dynamic_text["your_choice"], { role: getRoleName(role) }) }
+            subtitle={is_myTurn? dynamic_text["my_choice"] : InsertVariable(dynamic_text["your_choice"], { role: getRoleName(enemy) }) }
           />
           <CardText>
             {is_myTurn?

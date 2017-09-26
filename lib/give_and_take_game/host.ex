@@ -55,7 +55,7 @@ defmodule GiveAndTakeGame.Host do
     updater = fn participant, pair_id, role ->
       %{ participant |
         role: role,
-        point: 0,
+        point: if role == "even" do elem(data.prizes.even, 0) else elem(data.prizes.odd, 0) end,
         pair_id: pair_id
       }
     end
@@ -102,8 +102,7 @@ defmodule GiveAndTakeGame.Host do
     {c, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(o1, fn _, acc -> {acc, acc + o3} end)
     {d, _} = [0, 0, 0, 0, 0] |> Enum.map_reduce(o2, fn _, acc -> {acc, acc + o3} end)
     odd  = Enum.zip(c, d) |> Enum.map(fn {x, y} -> [x, y] end) |> Enum.concat
-    IO.inspect %{even: even, odd: odd}
-    %{data | config: config, prizes: %{even: even, odd: odd}}
+    IO.inspect %{data | config: config, prizes: %{even: even |> List.to_tuple, odd: odd |> List.to_tuple}}
   end
 
   def visit(data) do
