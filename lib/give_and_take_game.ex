@@ -21,6 +21,7 @@ defmodule GiveAndTakeGame do
         game_progress: 0,
         participants: %{},
         pairs: %{},
+        pairCount: 0,
         results: %{},
         isFirstVisit: true,
         config: [
@@ -84,6 +85,7 @@ defmodule GiveAndTakeGame do
       {"UPDATE_QUESTION", dynamic_text} -> Host.update_question(data, dynamic_text)
       {"UPDATE_CONFIG", config} -> Host.update_config(data, config)
       {"VISIT", _} -> Host.visit(data)
+      {"UPDATE_PAIRCOUNT", _} -> Host.update_paircount(data, params)
       {"SHOW_RESULTS", results} -> Actions.show_results(data, results)
       _ -> {:ok, %{data: data}}
     end

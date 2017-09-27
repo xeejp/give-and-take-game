@@ -85,22 +85,11 @@
     "partner_profit": "相手の利得",
     "chart": {
       "graph": "グラフ",
-      "first_choice": "最初の選択",
-      "rate": "割合",
-      "continue": "続行",
-      "end": "終了",
-      "9turn": "9ターンの選択",
-      "10turn": "10ターンの選択",
-      "choice_end_turn": "終了が選択されたターン",
-      "no_end": "終了なし",
+      "finish_turn": "終了したターン",
+      "finish_pair": "終了したペア数",
+      "finish_rate": "終了が選択された割合",
       "turn": "ターン",
-      "count": "ペア数",
-      "point": "<point>ポイント",
-      "end_turn": "終了したターン",
-      "first_circle_graph": "最初の円グラフ",
-      "next": "進む",
-      "last_circle_graph": "最後の円グラフ",
-      "visible_circle_graph": "表示円グラフ: <turn>"
+      "n_turn": "<turn>ターン"
     }
   }
 }

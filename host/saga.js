@@ -8,6 +8,7 @@ import {
   changePage,
   updateQuestion,
   updateConfig,
+  updatePairCount,
   visit
 } from './actions.js'
 
@@ -29,12 +30,21 @@ function* matchSaga() {
   }
 }
 
+function* updatePairCountSaga() {
+  while(true) {
+    yield take(`${updatePairCount}`)
+    const { results, pairs } = yield select()
+    sendData('UPDATE_PAIRCOUNT', Object.keys(results).reduce((a, b) => results[b].take? results[b].take + a : a, 0) + Object.keys(pairs).length)
+  }
+}
+
 function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${changePage}`)
     sendData('CHANGE_PAGE', payload)
     if (payload == 'description') {
       yield put(match())
+      yield put(updatePairCount())
     }
     if (payload == 'result') {
       const results = yield select(({ results }) => results) 
@@ -70,6 +80,7 @@ function* saga() {
   yield fork(changePageSaga)
   yield fork(updateQuestionSaga)
   yield fork(updateConfigSaga)
+  yield fork(updatePairCountSaga)
   yield fork(visitSaga)
 }
 

@@ -2,7 +2,6 @@ import concatenateReducers from 'redux-concatenate-reducers'
 import { handleAction, handleActions } from 'redux-actions'
 
 import {
-  changeChartTurn,
   fallChartButton,
   fallSnackBarFlags,
   fallSnackBarFlags2,
@@ -20,7 +19,6 @@ const reducer = concatenateReducers([
   handleActions({
     'update contents': (_, { payload }) => payload,
     'show results': (_, { payload }) => ({ results: payload }),
-    [changeChartTurn]: (_, { payload }) => ({ chart_turn: payload }),
     [fallChartButton]: () => ({ chart_button: false}),
   }, initialState),
   handleAction('update contents', () => ({ loading: false }), { loading: true })

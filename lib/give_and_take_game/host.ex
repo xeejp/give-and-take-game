@@ -108,4 +108,8 @@ defmodule GiveAndTakeGame.Host do
   def visit(data) do
     %{data | isFirstVisit: false}
   end
+
+  def update_paircount(data, params) do
+    %{data | pairCount: params}
+  end
 end
