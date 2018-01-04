@@ -83,6 +83,8 @@
     "table": "利得表",
     "your_profit": "あなたの利得",
     "partner_profit": "相手の利得",
+    "your_profit_v": "あなたの利得: <profit>",
+    "partner_profit_v": "相手の利得: <profit>",
     "chart": {
       "graph": "グラフ",
       "finish_turn": "終了したターン",

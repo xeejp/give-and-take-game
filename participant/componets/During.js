@@ -74,8 +74,8 @@ class During extends Component {
             {is_myTurn?
               <span style={{margin: 4}}>
                 <div style={{ position: "relative", marginBottom: "5%"}}>
-                  <h4 style={{ position: "absolute",  left: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{"あなたの利得: " + prizes[role][pair_turn - 1]}</h4>
-                  <h4 style={{ position: "absolute", right: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{"相手の利得: " + prizes[enemy][pair_turn - 1]}</h4>
+                  <h4 style={{ position: "absolute",  left: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{InsertVariable(ReadJSON().static_text["your_profit_v"], { profit: prizes[role][pair_turn - 1] })}</h4>
+                  <h4 style={{ position: "absolute", right: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{InsertVariable(ReadJSON().static_text["partner_profit_v"], { profit: prizes[enemy][pair_turn - 1] })}</h4>
                   <div style={{ clear: "both" }}></div>
                   <Slider
                     min={0}
@@ -96,8 +96,8 @@ class During extends Component {
             :
               <span style={{margin: 4}}>
                 <div style={{ position: "relative", marginBottom: "5%"}}>
-                  <h4 style={{ position: "absolute",  left: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{"あなたの利得: " + prizes[role][pair_turn - 1]}</h4>
-                  <h4 style={{ position: "absolute", right: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{"相手の利得: " + prizes[enemy][pair_turn - 1]}</h4>
+                  <h4 style={{ position: "absolute",  left: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{InsertVariable(ReadJSON().static_text["your_profit_v"], { profit: prizes[role][pair_turn - 1] })}</h4>
+                  <h4 style={{ position: "absolute", right: "1%", backgroundColor: "rgba(255,255,255,0.5)" }}>{InsertVariable(ReadJSON().static_text["partner_profit_v"], { profit: prizes[enemy][pair_turn - 1] })}</h4>
                   <div style={{ clear: "both" }}></div>
                   <Slider
                     min={0}
