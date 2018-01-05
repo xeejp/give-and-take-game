@@ -14,7 +14,7 @@ import Divider from 'material-ui/Divider'
 
 import { ReadJSON, InsertVariable } from '../util/ReadJSON'
 
-import { getPageName, game_pages } from 'util/index'
+import { getPageName, game_pages } from '../util/index'
 
 import {
   changePage,

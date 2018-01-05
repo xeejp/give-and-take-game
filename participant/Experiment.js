@@ -11,7 +11,7 @@ import { ReadJSON, InsertVariable } from '../util/ReadJSON.js'
 
 import {
   getRoleName,
-} from 'util/index'
+} from '../util/index'
 
 const mapStateToProps = ({
   pair_state, pair_turn,
